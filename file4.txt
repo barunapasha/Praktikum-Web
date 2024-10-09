@@ -1,3 +1,0 @@
-git remote add origin (link github)
-git remote
-git push -u origin main
