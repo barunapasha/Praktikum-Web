@@ -45,24 +45,56 @@
 
     <aside>
         <form action="" method="get">
-            <h4>Tinggalkan Pesan untuk saya melalui form dibawah ini:</h4>
-            <label for="name">Name:</label>
-            <input type="text" id="name" id="name"><br><br>
+            <table border="1">
+                <h3>Silahkan Isi Form Dibawah Untuk Menghubungi Saya!</h3>
+                <tr>
+                    <td><label for="nama">Nama Lengkap:</label></td>
+                    <td><input type="text" name="nama" id="nama" required></td>
+                </tr>
 
-            <label for="age">Age:</label>
-            <input type="text" id="age" id="age"><br><br>
+                <tr>
+                    <td><label for="Password">Password:</label></td>
+                    <td><input type="password" name="password" id="password"></td>
+                </tr>
 
-            <label for="gender">Gender</label>
-            <select name="gender" id="gender">
-                <option value="" disabled selected></option>
-                <option value="Laki-Laki">Laki-Laki</option>
-                <option value="Perempuan">Perempuan</option>
-            </select><br><br>
+                <tr>
+                    <td><label for="gender">Jenis Kelamin:</label></td>
+                    <td colspan="2">
+                        <div class="bordered-radio">
+                            <input type="radio" name="gender" id="laki-laki" value="laki-laki" required>
+                            <label for="laki-laki">Laki-laki</label>
+                            <input type="radio" name="gender" id="perempuan" value="perempuan" required>
+                            <label for="perempuan">Perempuan</label>
+                        </div>
+                    </td>
+                </tr>
 
-            <label for="msg">Pesan:</label><br>
-            <textarea name="msg" id="msg" placeholder>Masukan Pesan Disini</textarea><br><br>
+                <tr>
+                    <td><label for="prodi">Pilih Prodi:</label></td>
+                    <td>
+                        <select name="prodi" id="prodi"><b>select</b>
+                            <option value="" selected hidden></option>
+                            <option value="Ilmu Komputer">Ilmu Komputer</option>
+                            <option value="Kimia">Kimia</option>
+                            <option value="Teknik Logistik">Teknik Logistik</option>
+                            <option value="Teknik Lingkungan">Teknik Lingkungan</option>
+                        </select>
+                    </td>
+                </tr>
 
-            <input type="submit" value="submit">
+                <tr>
+                    <td><label for="pesan">Pesan:</label></td>
+                    <td><textarea name="pesan" id="pesan" placeholder="">silakan isi disini</textarea></td>
+                </tr>
+
+                <tr>
+                    <td><label for="urgent">Urgent?</label></td>
+                    <td><input type="checkbox" id="urgent" name="urgent" value="urgent"><b>YA!</b></td>
+                </tr>
+            </table>
+
+            <input type="submit" value="Kirim" size="10">
+            <input type="reset" value="reset" size="10">
         </form>
     </aside>
 
