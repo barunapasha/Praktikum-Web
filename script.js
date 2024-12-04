@@ -1,93 +1,43 @@
-document.addEventListener('DOMContentLoaded', function () {
+function startLogin(){
+    window.location.href = "login.html";
+}
 
-    const form = document.getElementById('mainForm');
-    const name = document.getElementById('name');
-    const email = document.getElementById('email');
-    const phone = document.getElementById('phone');
-    const password = document.getElementById('password');
-    const message = document.getElementById('message');
+function login(event) {
+    event.preventDefault();
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (checkInputs()) {
-            showModal();
-        }
-    });
+    const name = document.querySelector("#name");
+    const nim = document.querySelector("#nim");
 
-    name.addEventListener('input', () => {
-        validateField(name, name.value.trim() !== '', 'Name cannot be blank');
-    });
+    const oldErrors = document.querySelectorAll(".error");
+    oldErrors.forEach(error => error.remove());
 
-    email.addEventListener('input', () => {
-        validateField(email, isEmail(email.value.trim()), 'Not a valid email');
-    });
+    let isValid = true;
 
-    phone.addEventListener('input', () => {
-        validateField(phone, isPhone(phone.value.trim()), 'Not a valid phone number');
-    });
-
-    password.addEventListener('input', () => {
-        validateField(password, password.value.trim().length >= 8, 'Password must be at least 8 characters');
-    });
-
-    message.addEventListener('input', () => {
-        validateField(message, message.value.trim() !== '', 'Message cannot be blank');
-    });
-
-    function checkInputs() {
-        let isValid = true;
-        validateField(name, name.value.trim() !== '', 'Name cannot be blank');
-        validateField(email, isEmail(email.value.trim()), 'Not a valid email');
-        validateField(phone, isPhone(phone.value.trim()), 'Not a valid phone number');
-        validateField(password, password.value.trim().length >= 8, 'Password must be at least 8 characters');
-        validateField(message, message.value.trim() !== '', 'Message cannot be blank');
-
-        return isValid;
-
+    if (name.value === "") {
+        const p = document.createElement("p");
+        p.setAttribute("class", "error text-red-500 text-sm mt-1");
+        p.innerHTML = "Nama harus diisi!";
+        name.parentElement.appendChild(p);
+        isValid = false;
     }
 
-    function validateField(input, condition, errorMessage) {
-        if (condition) {
-            setSuccess(input);
-        } else {
-            setError(input, errorMessage);
-        }
+    if (nim.value === "") {
+        const p = document.createElement("p");
+        p.setAttribute("class", "error text-red-500 text-sm mt-1");
+        p.innerHTML = "NIM harus diisi!";
+        nim.parentElement.appendChild(p);
+        isValid = false;
+    } else if (!(/^[0-9]{9}$/.test(nim.value))) {
+        const p = document.createElement("p");
+        p.setAttribute("class", "error text-red-500 text-sm mt-1");
+        p.innerHTML = "Nomor HP harus berupa angka dengan panjang 9 digit!";
+        nim.parentElement.appendChild(p);
+        isValid = false;
     }
 
-    function setError(input, message) {
-        const formControl = input.parentElement;
-        const icon = formControl.querySelector('.icon');
-        formControl.className = 'form-control error';
-        input.placeholder = message;
+    if (isValid) {
+        localStorage.setItem('playerName', name.value);
+        localStorage.setItem('playerNIM', nim.value);
+        window.location.href = "quiz.html";
     }
-
-    function setSuccess(input) {
-        const formControl = input.parentElement;
-        const icon = formControl.querySelector('.icon');
-        formControl.className = 'form-control success';
-    }
-
-    function isEmail(email) {
-        return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email);
-    }
-
-    function isPhone(phone) {
-        return /^\+?(\d.*){3,}$/.test(phone);
-    }
-
-    function showModal() {
-        const modal = document.getElementById('successModal');
-        modal.style.display = 'block';
-
-        const closeBtn = document.querySelector('.close-button');
-        closeBtn.onclick = function () {
-            modal.style.display = 'none';
-        };
-
-        window.onclick = function (event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        };
-    }
-});
+}
